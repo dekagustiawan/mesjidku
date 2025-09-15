@@ -62,7 +62,7 @@ public class FotoService {
         fotoDTO.setId(foto.getId());
         fotoDTO.setUrl(foto.getUrl());
         fotoDTO.setKeterangan(foto.getKeterangan());
-        fotoDTO.setMasjid(foto.getMasjid() == null ? null : foto.getMasjid().getIdNasional());
+        fotoDTO.setMasjid(foto.getMasjid() == null ? null : foto.getMasjid().getId());
         return fotoDTO;
     }
 
@@ -78,7 +78,7 @@ public class FotoService {
     @EventListener(BeforeDeleteMasjid.class)
     public void on(final BeforeDeleteMasjid event) {
         final ReferencedException referencedException = new ReferencedException();
-        final Foto masjidFoto = fotoRepository.findFirstByMasjidIdNasional(event.getIdNasional());
+        final Foto masjidFoto = fotoRepository.findFirstByMasjidId(event.getId());
         if (masjidFoto != null) {
             referencedException.setKey("masjid.foto.masjid.referenced");
             referencedException.addParam(masjidFoto.getId());

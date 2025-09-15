@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MasjidFasilitasRepository extends JpaRepository<MasjidFasilitas, Long> {
 
-    MasjidFasilitas findFirstByMasjidIdNasional(String idNasional);
+    MasjidFasilitas findFirstByMasjidId(Long id);
 
     MasjidFasilitas findFirstByFasilitasId(Long id);
 

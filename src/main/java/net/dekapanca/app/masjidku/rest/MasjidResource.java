@@ -33,32 +33,29 @@ public class MasjidResource {
         return ResponseEntity.ok(masjidService.findAll());
     }
 
-    @GetMapping("/{idNasional}")
-    public ResponseEntity<MasjidDTO> getMasjid(
-            @PathVariable(name = "idNasional") final String idNasional) {
-        return ResponseEntity.ok(masjidService.get(idNasional));
+    @GetMapping("/{id}")
+    public ResponseEntity<MasjidDTO> getMasjid(@PathVariable(name = "id") final Long id) {
+        return ResponseEntity.ok(masjidService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<String> createMasjid(@RequestBody @Valid final MasjidDTO masjidDTO) {
-        final String createdIdNasional = masjidService.create(masjidDTO);
-        return new ResponseEntity<>('"' + createdIdNasional + '"', HttpStatus.CREATED);
+    public ResponseEntity<Long> createMasjid(@RequestBody @Valid final MasjidDTO masjidDTO) {
+        final Long createdId = masjidService.create(masjidDTO);
+        return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{idNasional}")
-    public ResponseEntity<String> updateMasjid(
-            @PathVariable(name = "idNasional") final String idNasional,
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> updateMasjid(@PathVariable(name = "id") final Long id,
             @RequestBody @Valid final MasjidDTO masjidDTO) {
-        masjidService.update(idNasional, masjidDTO);
-        return ResponseEntity.ok('"' + idNasional + '"');
+        masjidService.update(id, masjidDTO);
+        return ResponseEntity.ok(id);
     }
 
-    @DeleteMapping("/{idNasional}")
+    @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteMasjid(
-            @PathVariable(name = "idNasional") final String idNasional) {
-        masjidService.delete(idNasional);
+    public ResponseEntity<Void> deleteMasjid(@PathVariable(name = "id") final Long id) {
+        masjidService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

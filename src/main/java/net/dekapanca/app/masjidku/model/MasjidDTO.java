@@ -10,9 +10,7 @@ import lombok.Setter;
 @Setter
 public class MasjidDTO {
 
-    @Size(max = 30)
-    @MasjidIdNasionalValid
-    private String idNasional;
+    private Long id;
 
     private String nama;
 
@@ -50,5 +48,8 @@ public class MasjidDTO {
     private String kontakTelepon;
 
     private String kontakEmail;
+
+    @Size(max = 30)
+    private String idNasional;
 
 }

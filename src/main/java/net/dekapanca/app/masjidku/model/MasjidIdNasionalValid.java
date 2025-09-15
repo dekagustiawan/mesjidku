@@ -59,8 +59,6 @@ public @interface MasjidIdNasionalValid {
             if (value == null) {
                 // missing input
                 error = "NotNull";
-            } else if (masjidService.idNasionalExists(value)) {
-                error = "Exists.masjid.idNasional";
             }
             if (error != null) {
                 cvContext.disableDefaultConstraintViolation();

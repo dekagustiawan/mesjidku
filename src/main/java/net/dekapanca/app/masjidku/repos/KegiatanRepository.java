@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KegiatanRepository extends JpaRepository<Kegiatan, Long> {
 
-    Kegiatan findFirstByMasjidIdNasional(String idNasional);
+    Kegiatan findFirstByMasjidId(Long id);
 
 }

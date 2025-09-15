@@ -64,7 +64,7 @@ public class PengurusService {
         pengurusDTO.setNama(pengurus.getNama());
         pengurusDTO.setTelepon(pengurus.getTelepon());
         pengurusDTO.setEmail(pengurus.getEmail());
-        pengurusDTO.setMasjid(pengurus.getMasjid() == null ? null : pengurus.getMasjid().getIdNasional());
+        pengurusDTO.setMasjid(pengurus.getMasjid() == null ? null : pengurus.getMasjid().getId());
         return pengurusDTO;
     }
 
@@ -82,7 +82,7 @@ public class PengurusService {
     @EventListener(BeforeDeleteMasjid.class)
     public void on(final BeforeDeleteMasjid event) {
         final ReferencedException referencedException = new ReferencedException();
-        final Pengurus masjidPengurus = pengurusRepository.findFirstByMasjidIdNasional(event.getIdNasional());
+        final Pengurus masjidPengurus = pengurusRepository.findFirstByMasjidId(event.getId());
         if (masjidPengurus != null) {
             referencedException.setKey("masjid.pengurus.masjid.referenced");
             referencedException.addParam(masjidPengurus.getId());

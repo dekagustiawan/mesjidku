@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PengurusRepository extends JpaRepository<Pengurus, Long> {
 
-    Pengurus findFirstByMasjidIdNasional(String idNasional);
+    Pengurus findFirstByMasjidId(Long id);
 
 }

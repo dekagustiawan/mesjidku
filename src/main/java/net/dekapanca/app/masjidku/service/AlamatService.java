@@ -68,7 +68,7 @@ public class AlamatService {
         alamatDTO.setKabKota(alamat.getKabKota());
         alamatDTO.setProvinsi(alamat.getProvinsi());
         alamatDTO.setKodePos(alamat.getKodePos());
-        alamatDTO.setMasjid(alamat.getMasjid() == null ? null : alamat.getMasjid().getIdNasional());
+        alamatDTO.setMasjid(alamat.getMasjid() == null ? null : alamat.getMasjid().getId());
         return alamatDTO;
     }
 
@@ -90,7 +90,7 @@ public class AlamatService {
     @EventListener(BeforeDeleteMasjid.class)
     public void on(final BeforeDeleteMasjid event) {
         final ReferencedException referencedException = new ReferencedException();
-        final Alamat masjidAlamat = alamatRepository.findFirstByMasjidIdNasional(event.getIdNasional());
+        final Alamat masjidAlamat = alamatRepository.findFirstByMasjidId(event.getId());
         if (masjidAlamat != null) {
             referencedException.setKey("masjid.alamat.masjid.referenced");
             referencedException.addParam(masjidAlamat.getId());

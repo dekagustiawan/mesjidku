@@ -68,7 +68,7 @@ public class KegiatanService {
         kegiatanDTO.setNama(kegiatan.getNama());
         kegiatanDTO.setPenyelenggara(kegiatan.getPenyelenggara());
         kegiatanDTO.setDeskripsi(kegiatan.getDeskripsi());
-        kegiatanDTO.setMasjid(kegiatan.getMasjid() == null ? null : kegiatan.getMasjid().getIdNasional());
+        kegiatanDTO.setMasjid(kegiatan.getMasjid() == null ? null : kegiatan.getMasjid().getId());
         return kegiatanDTO;
     }
 
@@ -85,7 +85,7 @@ public class KegiatanService {
     @EventListener(BeforeDeleteMasjid.class)
     public void on(final BeforeDeleteMasjid event) {
         final ReferencedException referencedException = new ReferencedException();
-        final Kegiatan masjidKegiatan = kegiatanRepository.findFirstByMasjidIdNasional(event.getIdNasional());
+        final Kegiatan masjidKegiatan = kegiatanRepository.findFirstByMasjidId(event.getId());
         if (masjidKegiatan != null) {
             referencedException.setKey("masjid.kegiatan.masjid.referenced");
             referencedException.addParam(masjidKegiatan.getId());

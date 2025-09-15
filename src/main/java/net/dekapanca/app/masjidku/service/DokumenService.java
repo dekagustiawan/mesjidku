@@ -64,7 +64,7 @@ public class DokumenService {
         dokumenDTO.setNomor(dokumen.getNomor());
         dokumenDTO.setUrl(dokumen.getUrl());
         dokumenDTO.setTanggalDok(dokumen.getTanggalDok());
-        dokumenDTO.setMasjid(dokumen.getMasjid() == null ? null : dokumen.getMasjid().getIdNasional());
+        dokumenDTO.setMasjid(dokumen.getMasjid() == null ? null : dokumen.getMasjid().getId());
         return dokumenDTO;
     }
 
@@ -82,7 +82,7 @@ public class DokumenService {
     @EventListener(BeforeDeleteMasjid.class)
     public void on(final BeforeDeleteMasjid event) {
         final ReferencedException referencedException = new ReferencedException();
-        final Dokumen masjidDokumen = dokumenRepository.findFirstByMasjidIdNasional(event.getIdNasional());
+        final Dokumen masjidDokumen = dokumenRepository.findFirstByMasjidId(event.getId());
         if (masjidDokumen != null) {
             referencedException.setKey("masjid.dokumen.masjid.referenced");
             referencedException.addParam(masjidDokumen.getId());

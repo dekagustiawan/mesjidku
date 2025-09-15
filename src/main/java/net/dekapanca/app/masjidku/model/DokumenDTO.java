@@ -24,7 +24,6 @@ public class DokumenDTO {
     private LocalDate tanggalDok;
 
     @NotNull
-    @Size(max = 30)
-    private String masjid;
+    private Long masjid;
 
 }

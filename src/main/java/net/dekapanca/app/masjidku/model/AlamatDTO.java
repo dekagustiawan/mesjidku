@@ -32,7 +32,6 @@ public class AlamatDTO {
     private String kodePos;
 
     @NotNull
-    @Size(max = 30)
-    private String masjid;
+    private Long masjid;
 
 }

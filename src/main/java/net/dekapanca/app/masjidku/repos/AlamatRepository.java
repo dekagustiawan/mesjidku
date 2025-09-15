@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AlamatRepository extends JpaRepository<Alamat, Long> {
 
-    Alamat findFirstByMasjidIdNasional(String idNasional);
+    Alamat findFirstByMasjidId(Long id);
 
 }

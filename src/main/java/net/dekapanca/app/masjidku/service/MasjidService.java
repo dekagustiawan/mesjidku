@@ -24,41 +24,40 @@ public class MasjidService {
     }
 
     public List<MasjidDTO> findAll() {
-        final List<Masjid> masjids = masjidRepository.findAll(Sort.by("idNasional"));
+        final List<Masjid> masjids = masjidRepository.findAll(Sort.by("id"));
         return masjids.stream()
                 .map(masjid -> mapToDTO(masjid, new MasjidDTO()))
                 .toList();
     }
 
-    public MasjidDTO get(final String idNasional) {
-        return masjidRepository.findById(idNasional)
+    public MasjidDTO get(final Long id) {
+        return masjidRepository.findById(id)
                 .map(masjid -> mapToDTO(masjid, new MasjidDTO()))
                 .orElseThrow(NotFoundException::new);
     }
 
-    public String create(final MasjidDTO masjidDTO) {
+    public Long create(final MasjidDTO masjidDTO) {
         final Masjid masjid = new Masjid();
         mapToEntity(masjidDTO, masjid);
-        masjid.setIdNasional(masjidDTO.getIdNasional());
-        return masjidRepository.save(masjid).getIdNasional();
+        return masjidRepository.save(masjid).getId();
     }
 
-    public void update(final String idNasional, final MasjidDTO masjidDTO) {
-        final Masjid masjid = masjidRepository.findById(idNasional)
+    public void update(final Long id, final MasjidDTO masjidDTO) {
+        final Masjid masjid = masjidRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(masjidDTO, masjid);
         masjidRepository.save(masjid);
     }
 
-    public void delete(final String idNasional) {
-        final Masjid masjid = masjidRepository.findById(idNasional)
+    public void delete(final Long id) {
+        final Masjid masjid = masjidRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        publisher.publishEvent(new BeforeDeleteMasjid(idNasional));
+        publisher.publishEvent(new BeforeDeleteMasjid(id));
         masjidRepository.delete(masjid);
     }
 
     private MasjidDTO mapToDTO(final Masjid masjid, final MasjidDTO masjidDTO) {
-        masjidDTO.setIdNasional(masjid.getIdNasional());
+        masjidDTO.setId(masjid.getId());
         masjidDTO.setNama(masjid.getNama());
         masjidDTO.setTipologi(masjid.getTipologi());
         masjidDTO.setNpsm(masjid.getNpsm());
@@ -76,6 +75,7 @@ public class MasjidService {
         masjidDTO.setWebsite(masjid.getWebsite());
         masjidDTO.setKontakTelepon(masjid.getKontakTelepon());
         masjidDTO.setKontakEmail(masjid.getKontakEmail());
+        masjidDTO.setIdNasional(masjid.getIdNasional());
         return masjidDTO;
     }
 
@@ -97,11 +97,8 @@ public class MasjidService {
         masjid.setWebsite(masjidDTO.getWebsite());
         masjid.setKontakTelepon(masjidDTO.getKontakTelepon());
         masjid.setKontakEmail(masjidDTO.getKontakEmail());
+        masjid.setIdNasional(masjidDTO.getIdNasional());
         return masjid;
-    }
-
-    public boolean idNasionalExists(final String idNasional) {
-        return masjidRepository.existsByIdNasionalIgnoreCase(idNasional);
     }
 
 }

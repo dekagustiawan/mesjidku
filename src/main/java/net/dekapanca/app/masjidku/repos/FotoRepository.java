@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FotoRepository extends JpaRepository<Foto, Long> {
 
-    Foto findFirstByMasjidIdNasional(String idNasional);
+    Foto findFirstByMasjidId(Long id);
 
 }

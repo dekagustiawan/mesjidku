@@ -8,6 +8,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class BeforeDeleteMasjid {
 
-    private String idNasional;
+    private Long id;
 
 }

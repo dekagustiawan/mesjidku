@@ -23,7 +23,6 @@ public class PengurusDTO {
     private String email;
 
     @NotNull
-    @Size(max = 30)
-    private String masjid;
+    private Long masjid;
 
 }

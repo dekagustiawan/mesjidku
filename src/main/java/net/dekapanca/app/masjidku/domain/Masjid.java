@@ -3,8 +3,11 @@ package net.dekapanca.app.masjidku.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -25,8 +28,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Masjid {
 
     @Id
-    @Column(nullable = false, updatable = false, length = 30)
-    private String idNasional;
+    @Column(nullable = false, updatable = false)
+    @SequenceGenerator(
+            name = "primary_sequence",
+            sequenceName = "primary_sequence",
+            allocationSize = 1,
+            initialValue = 10000
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "primary_sequence"
+    )
+    private Long id;
 
     @Column(columnDefinition = "text")
     private String nama;
@@ -78,6 +91,9 @@ public class Masjid {
 
     @Column(columnDefinition = "text")
     private String kontakEmail;
+
+    @Column(length = 30)
+    private String idNasional;
 
     @OneToMany(mappedBy = "masjid")
     private Set<Alamat> masjidAlamats = new HashSet<>();

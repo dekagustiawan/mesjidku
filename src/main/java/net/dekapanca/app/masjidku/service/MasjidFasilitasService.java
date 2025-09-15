@@ -68,7 +68,7 @@ public class MasjidFasilitasService {
             final MasjidFasilitasDTO masjidFasilitasDTO) {
         masjidFasilitasDTO.setId(masjidFasilitas.getId());
         masjidFasilitasDTO.setKeterangan(masjidFasilitas.getKeterangan());
-        masjidFasilitasDTO.setMasjid(masjidFasilitas.getMasjid() == null ? null : masjidFasilitas.getMasjid().getIdNasional());
+        masjidFasilitasDTO.setMasjid(masjidFasilitas.getMasjid() == null ? null : masjidFasilitas.getMasjid().getId());
         masjidFasilitasDTO.setFasilitas(masjidFasilitas.getFasilitas() == null ? null : masjidFasilitas.getFasilitas().getId());
         return masjidFasilitasDTO;
     }
@@ -88,7 +88,7 @@ public class MasjidFasilitasService {
     @EventListener(BeforeDeleteMasjid.class)
     public void on(final BeforeDeleteMasjid event) {
         final ReferencedException referencedException = new ReferencedException();
-        final MasjidFasilitas masjidMasjidFasilitas = masjidFasilitasRepository.findFirstByMasjidIdNasional(event.getIdNasional());
+        final MasjidFasilitas masjidMasjidFasilitas = masjidFasilitasRepository.findFirstByMasjidId(event.getId());
         if (masjidMasjidFasilitas != null) {
             referencedException.setKey("masjid.masjidFasilitas.masjid.referenced");
             referencedException.addParam(masjidMasjidFasilitas.getId());
